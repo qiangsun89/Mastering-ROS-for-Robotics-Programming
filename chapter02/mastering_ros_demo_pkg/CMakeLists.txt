@@ -12,6 +12,7 @@ find_package(catkin REQUIRED COMPONENTS
   actionlib_msgs
   roscpp
   std_msgs
+  message_generation
 )
 
 ## System dependencies are found with CMake's conventions
@@ -48,11 +49,10 @@ find_package(catkin REQUIRED COMPONENTS
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-# add_message_files(
-#   FILES
-#   Message1.msg
-#   Message2.msg
-# )
+add_message_files(
+  FILES
+  demo_msg.msg
+)
 
 ## Generate services in the 'srv' folder
 # add_service_files(
@@ -69,10 +69,10 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   actionlib_msgs#   std_msgs
-# )
+generate_messages(
+  DEPENDENCIES
+  std_msgs#    actionlib_msgs
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -137,6 +137,7 @@ include_directories(
 add_executable(topic_publisher_node src/demo_topic_publisher.cpp)
 add_executable(topic_subscriber_node src/demo_topic_subscriber.cpp)
 add_executable(topic_subscriber_node2 src/demo_topic_subscriber2.cpp)
+add_executable(demo_msg_publisher_node src/demo_msg_publisher.cpp)
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -145,7 +146,7 @@ add_executable(topic_subscriber_node2 src/demo_topic_subscriber2.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-# add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(demo_msg_publisher_node mastering_ros_demo_pkg_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(topic_publisher_node
@@ -155,6 +156,9 @@ target_link_libraries(topic_subscriber_node
   ${catkin_LIBRARIES}
 )
 target_link_libraries(topic_subscriber_node2
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(demo_msg_publisher_node
   ${catkin_LIBRARIES}
 )
 
