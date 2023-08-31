@@ -55,11 +55,10 @@ add_message_files(
 )
 
 ## Generate services in the 'srv' folder
-# add_service_files(
-#   FILES
-#   Service1.srv
-#   Service2.srv
-# )
+add_service_files(
+  FILES
+  demo_srv.srv
+)
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -106,7 +105,7 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES mastering_ros_demo_pkg
-#  CATKIN_DEPENDS actionlib actionlib_msgs roscpp std_msgs
+ CATKIN_DEPENDS roscpp std_msgs message_runtime
 #  DEPENDS system_lib
 )
 
@@ -138,6 +137,8 @@ add_executable(topic_publisher_node src/demo_topic_publisher.cpp)
 add_executable(topic_subscriber_node src/demo_topic_subscriber.cpp)
 add_executable(topic_subscriber_node2 src/demo_topic_subscriber2.cpp)
 add_executable(demo_msg_publisher_node src/demo_msg_publisher.cpp)
+add_executable(demo_service_server_node src/demo_service_server.cpp)
+add_executable(demo_service_client_node src/demo_service_client.cpp)
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -159,6 +160,12 @@ target_link_libraries(topic_subscriber_node2
   ${catkin_LIBRARIES}
 )
 target_link_libraries(demo_msg_publisher_node
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(demo_service_server_node
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(demo_service_client_node
   ${catkin_LIBRARIES}
 )
 
