@@ -16,7 +16,7 @@ find_package(catkin REQUIRED COMPONENTS
 )
 
 ## System dependencies are found with CMake's conventions
-# find_package(Boost REQUIRED COMPONENTS system)
+find_package(Boost REQUIRED COMPONENTS system)
 
 
 ## Uncomment this if the package has a setup.py. This macro ensures
@@ -61,16 +61,16 @@ add_service_files(
 )
 
 ## Generate actions in the 'action' folder
-# add_action_files(
-#   FILES
-#   Action1.action
-#   Action2.action
-# )
+add_action_files(
+  FILES
+  demo_action.action
+)
 
 ## Generate added messages and services with any dependencies listed here
 generate_messages(
   DEPENDENCIES
-  std_msgs#    actionlib_msgs
+  std_msgs
+  actionlib_msgs    
 )
 
 ################################################
@@ -137,8 +137,12 @@ add_executable(topic_publisher_node src/demo_topic_publisher.cpp)
 add_executable(topic_subscriber_node src/demo_topic_subscriber.cpp)
 add_executable(topic_subscriber_node2 src/demo_topic_subscriber2.cpp)
 add_executable(demo_msg_publisher_node src/demo_msg_publisher.cpp)
+
 add_executable(demo_service_server_node src/demo_service_server.cpp)
 add_executable(demo_service_client_node src/demo_service_client.cpp)
+
+add_executable(demo_action_server_node src/demo_action_server.cpp)
+add_executable(demo_action_client_node src/demo_action_client.cpp)
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -166,6 +170,12 @@ target_link_libraries(demo_service_server_node
   ${catkin_LIBRARIES}
 )
 target_link_libraries(demo_service_client_node
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(demo_action_server_node
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(demo_action_client_node
   ${catkin_LIBRARIES}
 )
 
